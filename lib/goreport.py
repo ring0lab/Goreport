@@ -447,6 +447,8 @@ Ensure the IDs are provided as comma-separated integers or interger ranges, e.g.
                 self.results = self.campaign.results
                 self.timeline = self.campaign.timeline
         except:
+            self.results = self.campaign.results
+            self.timeline = self.campaign.timeline
             print(f"[!] Looks like campaign ID {self.cam_id} does not exist! Skipping it...")
 
     def process_results(self, combine_reports):
@@ -539,9 +541,9 @@ Ensure the IDs are provided as comma-separated integers or interger ranges, e.g.
         self.targets_submitted = []
         # Run through all events and count each of the four basic events
         for event in self.campaign.timeline:
-            if event.message == "Email Sent":
+            if event.message == "Email/SMS Sent":
                 sent_counter += 1
-            elif event.message == "Email Opened":
+            elif event.message == "Email/SMS Opened":
                 opened_counter += 1
                 self.targets_opened.append(event.email)
             elif event.message == "Clicked Link":
@@ -550,7 +552,7 @@ Ensure the IDs are provided as comma-separated integers or interger ranges, e.g.
             elif event.message == "Submitted Data":
                 submitted_counter += 1
                 self.targets_submitted.append(event.email)
-            elif event.message == "Email Reported":
+            elif event.message == "Email/SMS Reported":
                 reported_counter += 1
                 self.targets_reported.append(event.email)
         # Assign the counter values to our tracking lists
